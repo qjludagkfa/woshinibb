@@ -1,0 +1,14 @@
+[Unit]
+  Description=n2n edge (yn-room-615e -> n2n.sfcs.eu.org)
+  After=network-online.target
+  Wants=network-online.target
+
+  [Service]
+  ExecStartPre=/sbin/modprobe tun
+  ExecStart=/usr/sbin/edge -f -a 10.20.30.2/24 -c yn-room-615e -k d224d1d5fdb4664f459b5ddec64a3469 -l
+  n2n.sfcs.eu.org:10090 -S2  -d ens19
+  Restart=always
+  RestartSec=5
+
+  [Install]
+  WantedBy=multi-user.targets
