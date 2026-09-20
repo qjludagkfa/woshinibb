@@ -1,13 +1,23 @@
-[Unit]
-  Description=n2n edge (yn-room-615e -> n2n.sfcs.eu.org)
-  After=network-online.target
-  Wants=network-online.target
-
-  [Service]
-  ExecStartPre=/sbin/modprobe tun
-  ExecStart=/usr/sbin/edge -f -a 10.20.30.2/24 -c yn-room-615e -k d224d1d5fdb4664f459b5ddec64a3469 -l n2n.sfcs.eu.org:10090 -S2  -d ens19
-  Restart=always
-  RestartSec=5
-
-  [Install]
-  WantedBy=multi-user.target
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/sbin/nologin
+n2n:x:995:995::/home/n2n:/bin/false
+tss:x:59:59:Account used for TPM access:/:/usr/sbin/nologin
+sssd:x:998:998:User for sssd:/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+crm:x:1000:1000:crm:/home/crm:/bin/bash
+crms:x:1001:1001::/home/crms:/bin/bash
+nginx:x:996:996:Nginx web server:/var/lib/nginx:/sbin/nologin
