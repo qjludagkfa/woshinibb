@@ -729,8 +729,7 @@ def run_check():
         # Parse out all of the command line arguments
         parser = argparse.ArgumentParser(description='Try to gather system information and find likely exploits')
         parser.add_argument('-s', '--searches', help='Skip time consumming or resource intensive searches', required=False, action='store_true')
-        parser.add_argument('-w', '--write', help='Wether to write a log file, can be used with -0 to specify name/location ', required=False, action='store_true')
-        parser.add_argument('-o', '--outfile', help='The file to write results (needs to be writable for current user)', required=False, default='linuxprivchecker.log')
+        parser.add_argument('-o', '--outfile', help='Write results to this file as well as stdout (needs to be writable for current user)', required=False, default=None)
         args = parser.parse_args()
 
         if args.searches:
@@ -738,8 +737,8 @@ def run_check():
         else:
             processsearches = True
 
-        # if write is requeted, create a custom logger to send stout to log file as well
-        if args.write:
+        # if an outfile is given, tee stdout to it as well
+        if args.outfile:
             # import sys for io redirection
             import sys
 
@@ -751,6 +750,10 @@ def run_check():
                 def write(self, message):
                     self.terminal.write(message)
                     self.log.write(message)
+
+                def flush(self):
+                    self.terminal.flush()
+                    self.log.flush()
             sys.stdout = Logger()
 
     except ImportError:
